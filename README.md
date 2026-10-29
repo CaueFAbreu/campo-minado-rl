@@ -8,4 +8,4 @@ considerando as posições dos 22 jogadores, o contexto do jogo e as transiçõe
 
 | # | Entrega | Data | Material |
 |---|---|---|---|
-| 1 | Modelagem do problema como MDP (estado, ações, recompensas) | 29/10/2026 | [entrega-01-modelagem](entrega-01-modelagem/apresentacao.md) |
+| 1 | Modelagem do problema como MDP (estado, ações, recompensas) | 29/10/2026 | [resumo](entrega-01-modelagem/apresentacao.md) · [slides (PDF)](entrega-01-modelagem/slides.pdf) · [documento detalhado (PDF)](entrega-01-modelagem/modelagem-detalhada.pdf) |

@@ -13,11 +13,12 @@ a geração e o consumo futuros.
 
 | | |
 |---|---|
-| Estado | carga da bateria, hora, dia útil/fim de semana, geração solar, consumo |
+| Estado | carga da bateria, hora, tipo de dia, mês, geração e consumo da hora anterior |
 | Ações | carregar 2 kW · carregar 1 kW · parar · descarregar 1 kW · descarregar 2 kW |
-| Recompensa | −custo da energia comprada + valor da energia injetada − desgaste da bateria |
+| Recompensa | pontos por kWh, de +10 a −10, conforme a ação ajuda ou prejudica a conta; o resultado final é medido em R$ |
 
-Detalhes em [docs/proposta.md](docs/proposta.md).
+Detalhes em [docs/proposta.md](docs/proposta.md). Apresentação da entrega 1 em
+[slides.pdf](entrega-01-modelagem/slides.pdf).
 
 ## Avaliação
 

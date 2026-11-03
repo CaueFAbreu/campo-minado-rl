@@ -1,11 +1,41 @@
-# Trabalho de IA — Aprendizado por Reforço no Futebol
+# Bateria solar com Aprendizado por Reforço
 
-**Problema:** dado um time de futebol em posse de bola, determinar a sequência ótima de ações
-(passes, chutes, dribles, movimentações) que maximize a probabilidade de converter a posse em gol,
-considerando as posições dos 22 jogadores, o contexto do jogo e as transições probabilísticas do ambiente.
+Agente de aprendizado por reforço que decide, a cada hora, quando carregar e descarregar
+a bateria de uma casa com painel solar, para minimizar a conta de luz na tarifa branca.
 
-## Entregas
+## Problema
 
-| # | Entrega | Data | Material |
-|---|---|---|---|
-| 1 | Modelagem do problema como MDP (estado, ações, recompensas) | 29/10/2026 | [resumo](entrega-01-modelagem/apresentacao.md) · [slides (PDF)](entrega-01-modelagem/slides.pdf) · [documento detalhado (PDF)](entrega-01-modelagem/modelagem-detalhada.pdf) |
+A energia é mais cara no horário de ponta, o sol só gera de dia e o consumo da casa tem pico
+à noite. O agente aprende a guardar energia barata e usá-la quando ela é cara, sem conhecer
+a geração e o consumo futuros.
+
+## Modelagem (MDP)
+
+| | |
+|---|---|
+| Estado | carga da bateria, hora, dia útil/fim de semana, geração solar, consumo |
+| Ações | carregar 2 kW · carregar 1 kW · parar · descarregar 1 kW · descarregar 2 kW |
+| Recompensa | −custo da energia comprada + valor da energia injetada − desgaste da bateria |
+
+Detalhes em [docs/proposta.md](docs/proposta.md).
+
+## Avaliação
+
+O agente é comparado com: sem bateria (piso), regra simples de carga/descarga (referência)
+e ótimo com previsão perfeita (teto).
+
+## Situação
+
+- [x] Definição do problema e modelagem
+- [ ] Dados: geração solar, tarifa branca, consumo residencial
+- [ ] Ambiente de simulação
+- [ ] Políticas de comparação
+- [ ] Q-learning tabular
+- [ ] DQN / PPO
+
+## Equipe
+
+- Cauê Fernando Faria Abreu
+- Paulo Fernando Azevedo de Carvalho
+
+Disciplina: Inteligência Artificial

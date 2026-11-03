@@ -27,14 +27,6 @@ Apresentação da entrega 1 em [slides.pdf](entrega-01-modelagem/slides.pdf).
 A métrica principal é a taxa de vitórias, nos mesmos tabuleiros de teste. O agente é comparado com
 clicar ao acaso (piso) e com um resolvedor lógico (referência alta).
 
-## Situação
-
-- [x] Definição do problema e modelagem
-- [ ] Ambiente do jogo
-- [ ] Políticas de comparação
-- [ ] Q-learning tabular
-- [ ] DQN convolucional
-
 ## Equipe
 
 - Cauê Fernando Faria Abreu

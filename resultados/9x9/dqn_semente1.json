@@ -1,0 +1,82 @@
+{
+ "config": {
+  "gamma": 0.1,
+  "lr": 0.001,
+  "lote": 128,
+  "canais": 32,
+  "camadas": 5,
+  "paralelos": 32,
+  "memoria": 200000,
+  "epsilon_final": 0.01,
+  "fracao_exploracao": 0.3,
+  "atualizar_alvo": 1000,
+  "avaliar_cada": 2000,
+  "episodios": 100000,
+  "tabuleiro": "9x9",
+  "semente": 1
+ },
+ "curva": [
+  {
+   "episodio": 0,
+   "vitorias": 0.0
+  },
+  {
+   "episodio": 2004,
+   "vitorias": 0.029
+  },
+  {
+   "episodio": 4008,
+   "vitorias": 0.072
+  },
+  {
+   "episodio": 6002,
+   "vitorias": 0.132
+  },
+  {
+   "episodio": 8004,
+   "vitorias": 0.195
+  },
+  {
+   "episodio": 10003,
+   "vitorias": 0.248
+  },
+  {
+   "episodio": 12007,
+   "vitorias": 0.299
+  },
+  {
+   "episodio": 14004,
+   "vitorias": 0.308
+  },
+  {
+   "episodio": 16000,
+   "vitorias": 0.338
+  },
+  {
+   "episodio": 18003,
+   "vitorias": 0.299
+  },
+  {
+   "episodio": 20006,
+   "vitorias": 0.352
+  },
+  {
+   "episodio": 22002,
+   "vitorias": 0.445
+  },
+  {
+   "episodio": 24001,
+   "vitorias": 0.486
+  },
+  {
+   "episodio": 26002,
+   "vitorias": 0.461
+  },
+  {
+   "episodio": 28003,
+   "vitorias": 0.524
+  }
+ ],
+ "tempo_s": 1819,
+ "nota": "treino interrompido em 28003 partidas (planejado: 100.000); curva reconstruída do log"
+}

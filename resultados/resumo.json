@@ -1,0 +1,22 @@
+{
+ "5x5": {
+  "Ao acaso": 0.0285,
+  "Resolvedor lógico": 0.6122,
+  "DQN": {
+   "vitorias": 0.6523,
+   "semente": 0,
+   "episodio": 32007,
+   "validacao": 0.6735
+  }
+ },
+ "9x9": {
+  "Ao acaso": 0.0001,
+  "Resolvedor lógico": 0.7917,
+  "DQN": {
+   "vitorias": 0.5019,
+   "semente": 0,
+   "episodio": 28000,
+   "validacao": 0.5125
+  }
+ }
+}

@@ -1,0 +1,16 @@
+ep       0  teste   0.0%
+ep    2008  teste   0.7%  treino   0.0%  eps 0.934      63s
+ep    4005  teste   4.7%  treino   0.1%  eps 0.868     139s
+ep    6000  teste  10.3%  treino   0.1%  eps 0.802     216s
+ep    8001  teste  16.9%  treino   0.1%  eps 0.736     293s
+ep   10003  teste  22.8%  treino   0.1%  eps 0.670     383s
+ep   12006  teste  24.0%  treino   0.2%  eps 0.604     452s
+ep   14003  teste  30.5%  treino   0.4%  eps 0.538     558s
+ep   16000  teste  27.9%  treino   1.1%  eps 0.472     668s
+ep   18003  teste  34.3%  treino   1.1%  eps 0.406     831s
+ep   20003  teste  34.3%  treino   2.9%  eps 0.340     986s
+ep   22002  teste  32.8%  treino   4.0%  eps 0.274    1167s
+ep   24005  teste  40.6%  treino   7.1%  eps 0.208    1347s
+ep   26000  teste  47.2%  treino  10.8%  eps 0.142    1558s
+ep   28001  teste  45.0%  treino  21.4%  eps 0.076    1793s
+ep   30000  teste  50.0%  treino  33.7%  eps 0.010    2027s

@@ -1,0 +1,10 @@
+5x5 DQN {'vitorias': 0.6523, 'validacao': 0.6735, 'checkpoint': '5x5/checkpoints_semente0/ep0032007.pt', 'simetria': False}
+5x5 DQN + média nas simetrias {'vitorias': 0.6512, 'validacao': 0.65, 'checkpoint': '5x5/checkpoints_semente0/ep0032007.pt', 'simetria': True}
+5x5 DQN retreinada {'vitorias': 0.6523, 'validacao': 0.6735, 'checkpoint': 'ajuste/5x5/checkpoints_semente0/ep0032007.pt', 'simetria': False}
+5x5 DQN retreinada + média nas simetrias {'vitorias': 0.6512, 'validacao': 0.65, 'checkpoint': 'ajuste/5x5/checkpoints_semente0/ep0032007.pt', 'simetria': True}
+5x5 final: DQN | lógica + chute da DQN: 0.74
+9x9 DQN {'vitorias': 0.6719, 'validacao': 0.675, 'checkpoint': '9x9/checkpoints_semente0/ep0098001.pt', 'simetria': False}
+9x9 DQN + média nas simetrias {'vitorias': 0.8158, 'validacao': 0.7995, 'checkpoint': '9x9/checkpoints_semente0/ep0098001.pt', 'simetria': True}
+9x9 DQN retreinada {'vitorias': 0.7159, 'validacao': 0.718, 'checkpoint': 'ajuste/9x9/checkpoints_semente0/ep0134001.pt', 'simetria': False}
+9x9 DQN retreinada + média nas simetrias {'vitorias': 0.8156, 'validacao': 0.826, 'checkpoint': 'ajuste/9x9/checkpoints_semente0/ep0134001.pt', 'simetria': True}
+9x9 final: DQN retreinada + média nas simetrias | lógica + chute da DQN: 0.8955

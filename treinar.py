@@ -8,6 +8,7 @@ Exemplos:
 
 import argparse
 import json
+import math
 import re
 import time
 from pathlib import Path
@@ -17,7 +18,7 @@ import torch
 import torch.nn.functional as F
 
 from campo_minado.ambiente import CampoMinado
-from campo_minado.dqn import Memoria, RedeQ, avaliar, codificar, mascara_fechadas, melhores_acoes
+from campo_minado.dqn import Memoria, RedeQ, aumentar, avaliar, codificar, mascara_fechadas, melhores_acoes
 
 TABULEIROS = {"5x5": (5, 5, 4), "9x9": (9, 9, 10)}
 SEMENTES_TESTE = range(10_000_000, 10_001_000)  # nunca usadas no treino
@@ -31,6 +32,10 @@ def main():
     p.add_argument("--paralelos", type=int, default=32, help="partidas jogadas ao mesmo tempo")
     p.add_argument("--gamma", type=float, default=0.1)
     p.add_argument("--lr", type=float, default=1e-3)
+    p.add_argument("--lr-final", type=float, default=None,
+                   help="se informado, a taxa de aprendizado cai (cosseno) de --lr até este valor")
+    p.add_argument("--aumentar", action="store_true",
+                   help="gira/espelha cada lote do replay ao acaso (o jogo é simétrico)")
     p.add_argument("--lote", type=int, default=128)
     p.add_argument("--canais", type=int, default=32)
     p.add_argument("--camadas", type=int, default=5)
@@ -86,6 +91,7 @@ def main():
             curva = [p for p in dados["curva"] if p["episodio"] < episodios]
             inicio -= dados.get("tempo_s", 0)
         print(f"retomando de {args.continuar_de} ({episodios} partidas)", flush=True)
+    episodio_inicial = episodios
 
     def calcular_epsilon():
         return max(args.epsilon_final,
@@ -135,6 +141,13 @@ def main():
 
         # Um passo de treino (Double DQN) por rodada de jogadas
         s, a, r, s2, fim = memoria.amostrar(args.lote, rng)
+        if args.aumentar:
+            s, a, s2 = aumentar(s, a, s2, rng)
+        if args.lr_final is not None:
+            progresso = (episodios - episodio_inicial) / (args.episodios - episodio_inicial)
+            lr = args.lr_final + (args.lr - args.lr_final) * 0.5 * (1 + math.cos(math.pi * min(progresso, 1)))
+            for grupo in otimizador.param_groups:
+                grupo["lr"] = lr
         q = online(codificar(s)).gather(1, torch.as_tensor(a)[:, None]).squeeze(1)
         with torch.no_grad():
             mascara2 = mascara_fechadas(s2)

@@ -38,6 +38,47 @@ class RedeQ(nn.Module):
         return self.rede(x).flatten(1)  # (B, L*C)
 
 
+# O jogo não muda se o tabuleiro for girado ou espelhado: são 8 simetrias (4 rotações x espelho).
+SIMETRIAS = [(k, espelho) for k in range(4) for espelho in (False, True)]
+
+
+def transformar(x, k, espelho):
+    """Gira as duas últimas dimensões k vezes 90 graus e, se pedido, espelha."""
+    x = torch.rot90(x, k, dims=(-2, -1))
+    return torch.flip(x, dims=(-1,)) if espelho else x
+
+
+def desfazer(x, k, espelho):
+    if espelho:
+        x = torch.flip(x, dims=(-1,))
+    return torch.rot90(x, -k, dims=(-2, -1))
+
+
+def valores_q(rede, estados, simetria=False):
+    """Valores Q de cada casa. Com `simetria`, tira a média da rede nas 8 versões do tabuleiro."""
+    x = codificar(estados)
+    if not simetria:
+        return rede(x)
+    lado = x.shape[-1]
+    total = 0
+    for k, espelho in SIMETRIAS:
+        q = rede(transformar(x, k, espelho)).view(-1, lado, lado)
+        total = total + desfazer(q, k, espelho)
+    return (total / len(SIMETRIAS)).flatten(1)
+
+
+def aumentar(s, a, s2, rng):
+    """Aplica a mesma simetria aleatória a um lote do replay (estados, ações e próximos estados)."""
+    k, espelho = SIMETRIAS[rng.integers(len(SIMETRIAS))]
+    lado = s.shape[-1]
+    s = transformar(torch.as_tensor(s), k, espelho).numpy().copy()
+    s2 = transformar(torch.as_tensor(s2), k, espelho).numpy().copy()
+    antiga = transformar(torch.arange(lado * lado).view(lado, lado), k, espelho).flatten()
+    nova = torch.empty_like(antiga)
+    nova[antiga] = torch.arange(lado * lado)  # casa antiga -> casa nova
+    return s, nova[torch.as_tensor(a)].numpy(), s2
+
+
 def melhores_acoes(q, mascara):
     return q.masked_fill(~mascara, -torch.inf).argmax(1)
 
@@ -65,7 +106,7 @@ class Memoria:
 
 
 @torch.no_grad()
-def avaliar(rede, linhas, colunas, minas, sementes, paralelos=200):
+def avaliar(rede, linhas, colunas, minas, sementes, paralelos=200, simetria=False):
     """Taxa de vitórias da política gulosa (sem exploração) nas sementes de teste."""
     rede.eval()
     vitorias = 0
@@ -77,7 +118,7 @@ def avaliar(rede, linhas, colunas, minas, sementes, paralelos=200):
         ativos = list(range(len(envs)))
         while ativos:
             est = np.stack([estados[i] for i in ativos])
-            acoes = melhores_acoes(rede(codificar(est)), mascara_fechadas(est)).tolist()
+            acoes = melhores_acoes(valores_q(rede, est, simetria), mascara_fechadas(est)).tolist()
             seguem = []
             for i, a in zip(ativos, acoes):
                 estados[i], _, terminou, info = envs[i].step(a)
@@ -95,10 +136,37 @@ class PoliticaDQN:
 
     nome = "DQN"
 
-    def __init__(self, rede):
+    def __init__(self, rede, simetria=False):
         self.rede = rede.eval()
+        self.simetria = simetria
 
     @torch.no_grad()
     def escolher(self, visivel):
         est = visivel[None]
-        return int(melhores_acoes(self.rede(codificar(est)), mascara_fechadas(est))[0])
+        return int(melhores_acoes(valores_q(self.rede, est, self.simetria), mascara_fechadas(est))[0])
+
+
+class LogicaComChuteDQN:
+    """Combinação: abre as casas que a lógica garante e só usa a DQN quando é preciso chutar.
+
+    Mede quanto a DQN acerta nos chutes: é o resolvedor lógico com o chute ao acaso trocado pela
+    casa de maior valor Q entre as que a lógica não provou ser mina.
+    """
+
+    nome = "Lógica + chute da DQN"
+
+    def __init__(self, rede, simetria=False):
+        from .politicas import Resolvedor
+        self.rede = rede.eval()
+        self.simetria = simetria
+        self.resolvedor = Resolvedor()
+
+    @torch.no_grad()
+    def escolher(self, visivel):
+        minas, seguras = self.resolvedor._deduzir(visivel)
+        if seguras:
+            return min(seguras)
+        q = valores_q(self.rede, visivel[None], self.simetria)[0]
+        permitidas = torch.as_tensor(visivel.ravel() == FECHADA)
+        permitidas[list(minas)] = False
+        return int(q.masked_fill(~permitidas, -torch.inf).argmax())

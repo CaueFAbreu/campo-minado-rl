@@ -2,21 +2,77 @@
  "5x5": {
   "Ao acaso": 0.0285,
   "Resolvedor lógico": 0.6122,
-  "DQN": {
+  "variantes": {
+   "DQN": {
+    "vitorias": 0.6523,
+    "validacao": 0.6735,
+    "checkpoint": "5x5/checkpoints_semente0/ep0032007.pt",
+    "simetria": false
+   },
+   "DQN + média nas simetrias": {
+    "vitorias": 0.6512,
+    "validacao": 0.65,
+    "checkpoint": "5x5/checkpoints_semente0/ep0032007.pt",
+    "simetria": true
+   },
+   "DQN retreinada": {
+    "vitorias": 0.6523,
+    "validacao": 0.6735,
+    "checkpoint": "ajuste/5x5/checkpoints_semente0/ep0032007.pt",
+    "simetria": false
+   },
+   "DQN retreinada + média nas simetrias": {
+    "vitorias": 0.6512,
+    "validacao": 0.65,
+    "checkpoint": "ajuste/5x5/checkpoints_semente0/ep0032007.pt",
+    "simetria": true
+   }
+  },
+  "DQN final": {
    "vitorias": 0.6523,
-   "semente": 0,
-   "episodio": 32007,
-   "validacao": 0.6735
-  }
+   "validacao": 0.6735,
+   "checkpoint": "5x5/checkpoints_semente0/ep0032007.pt",
+   "simetria": false,
+   "versao": "DQN"
+  },
+  "Lógica + chute da DQN": 0.74
  },
  "9x9": {
   "Ao acaso": 0.0001,
   "Resolvedor lógico": 0.7917,
-  "DQN": {
-   "vitorias": 0.6719,
-   "semente": 0,
-   "episodio": 98001,
-   "validacao": 0.675
-  }
+  "variantes": {
+   "DQN": {
+    "vitorias": 0.6719,
+    "validacao": 0.675,
+    "checkpoint": "9x9/checkpoints_semente0/ep0098001.pt",
+    "simetria": false
+   },
+   "DQN + média nas simetrias": {
+    "vitorias": 0.8158,
+    "validacao": 0.7995,
+    "checkpoint": "9x9/checkpoints_semente0/ep0098001.pt",
+    "simetria": true
+   },
+   "DQN retreinada": {
+    "vitorias": 0.7159,
+    "validacao": 0.718,
+    "checkpoint": "ajuste/9x9/checkpoints_semente0/ep0134001.pt",
+    "simetria": false
+   },
+   "DQN retreinada + média nas simetrias": {
+    "vitorias": 0.8156,
+    "validacao": 0.826,
+    "checkpoint": "ajuste/9x9/checkpoints_semente0/ep0134001.pt",
+    "simetria": true
+   }
+  },
+  "DQN final": {
+   "vitorias": 0.8156,
+   "validacao": 0.826,
+   "checkpoint": "ajuste/9x9/checkpoints_semente0/ep0134001.pt",
+   "simetria": true,
+   "versao": "DQN retreinada + média nas simetrias"
+  },
+  "Lógica + chute da DQN": 0.8955
  }
 }

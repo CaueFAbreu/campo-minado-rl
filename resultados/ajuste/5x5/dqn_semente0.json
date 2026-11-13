@@ -1,0 +1,111 @@
+{
+ "config": {
+  "tabuleiro": "5x5",
+  "semente": 0,
+  "episodios": 72000,
+  "paralelos": 32,
+  "gamma": 0.1,
+  "lr": 0.0005,
+  "lr_final": 1e-05,
+  "aumentar": true,
+  "lote": 128,
+  "canais": 32,
+  "camadas": 5,
+  "memoria": 200000,
+  "epsilon_final": 0.01,
+  "fracao_exploracao": 0.3,
+  "atualizar_alvo": 1000,
+  "avaliar_cada": 2000,
+  "threads": 3,
+  "checkpoints": true,
+  "continuar_de": "resultados/5x5/checkpoints_semente0/ep0032007.pt",
+  "saida": "resultados/ajuste"
+ },
+ "curva": [
+  {
+   "episodio": 32007,
+   "vitorias": 0.642
+  },
+  {
+   "episodio": 34012,
+   "vitorias": 0.552
+  },
+  {
+   "episodio": 36011,
+   "vitorias": 0.578
+  },
+  {
+   "episodio": 38007,
+   "vitorias": 0.614
+  },
+  {
+   "episodio": 40008,
+   "vitorias": 0.587
+  },
+  {
+   "episodio": 42008,
+   "vitorias": 0.523
+  },
+  {
+   "episodio": 44012,
+   "vitorias": 0.61
+  },
+  {
+   "episodio": 46017,
+   "vitorias": 0.6
+  },
+  {
+   "episodio": 48008,
+   "vitorias": 0.623
+  },
+  {
+   "episodio": 50009,
+   "vitorias": 0.665
+  },
+  {
+   "episodio": 52009,
+   "vitorias": 0.556
+  },
+  {
+   "episodio": 54007,
+   "vitorias": 0.64
+  },
+  {
+   "episodio": 56009,
+   "vitorias": 0.601
+  },
+  {
+   "episodio": 58007,
+   "vitorias": 0.603
+  },
+  {
+   "episodio": 60007,
+   "vitorias": 0.605
+  },
+  {
+   "episodio": 62007,
+   "vitorias": 0.597
+  },
+  {
+   "episodio": 64013,
+   "vitorias": 0.611
+  },
+  {
+   "episodio": 66009,
+   "vitorias": 0.614
+  },
+  {
+   "episodio": 68007,
+   "vitorias": 0.619
+  },
+  {
+   "episodio": 70011,
+   "vitorias": 0.618
+  },
+  {
+   "episodio": 72002,
+   "vitorias": 0.609
+  }
+ ],
+ "tempo_s": 535
+}

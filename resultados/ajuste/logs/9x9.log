@@ -1,0 +1,23 @@
+retomando de resultados/9x9/checkpoints_semente0/ep0098001.pt (98001 partidas)
+ep   98001  teste  68.5%  treino   0.0%  eps 0.010       2s
+ep  100003  teste  66.6%  treino  59.7%  eps 0.010      69s
+ep  102005  teste  55.0%  treino  60.9%  eps 0.010     358s
+ep  104004  teste  61.7%  treino  57.6%  eps 0.010     420s
+ep  106002  teste  65.1%  treino  52.9%  eps 0.010     485s
+ep  108001  teste  64.3%  treino  59.0%  eps 0.010     551s
+ep  110001  teste  64.9%  treino  60.2%  eps 0.010     618s
+ep  112002  teste  68.5%  treino  64.8%  eps 0.010     674s
+ep  114001  teste  63.6%  treino  61.6%  eps 0.010     728s
+ep  116001  teste  65.3%  treino  59.9%  eps 0.010     779s
+ep  118003  teste  72.3%  treino  64.2%  eps 0.010     832s
+ep  120001  teste  67.6%  treino  63.4%  eps 0.010     888s
+ep  122001  teste  66.2%  treino  62.9%  eps 0.010     946s
+ep  124001  teste  68.1%  treino  62.2%  eps 0.010    1004s
+ep  126002  teste  66.7%  treino  62.3%  eps 0.010    1057s
+ep  128002  teste  63.5%  treino  57.5%  eps 0.010    1107s
+ep  130001  teste  68.2%  treino  59.9%  eps 0.010    1165s
+ep  132001  teste  71.6%  treino  63.1%  eps 0.010    1222s
+ep  134001  teste  72.9%  treino  65.2%  eps 0.010    1279s
+ep  136001  teste  70.9%  treino  64.8%  eps 0.010    1334s
+ep  138001  teste  71.6%  treino  63.5%  eps 0.010    1386s
+final: 68.7% de vitórias em 1438s

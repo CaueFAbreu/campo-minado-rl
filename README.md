@@ -31,10 +31,17 @@ clicar ao acaso (piso) e com um resolvedor lógico (referência alta).
 
 Vitórias em 10.000 tabuleiros de teste, que o agente não viu no treino:
 
-| Tabuleiro | Ao acaso | Resolvedor lógico | DQN |
-|---|---|---|---|
-| 5×5, 4 minas | 2,9% | 61,2% | **65,2%** |
-| 9×9, 10 minas | 0,0% | 79,2% | **67,2%** |
+| Política | 5×5, 4 minas | 9×9, 10 minas |
+|---|---|---|
+| Ao acaso | 2,9% | 0,0% |
+| Resolvedor lógico (lógica + chute ao acaso) | 61,2% | 79,2% |
+| DQN inicial | 65,2% | 67,2% |
+| DQN retreinada (simetrias no treino, taxa de aprendizado decrescente) | 65,2%¹ | 71,6% |
+| DQN retreinada + média nas 8 simetrias | 65,1% | 81,6% |
+| **DQN final** (melhor versão na validação) | **65,2%** | **81,6%** |
+| Lógica + chute da DQN | 74,0% | 89,5% |
+
+¹ No 5×5, o retreino não superou a rede original na validação, então a rede comparada é a mesma.
 
 ![Curva de aprendizado](resultados/curva_aprendizado.png)
 
@@ -43,11 +50,21 @@ Vitórias em 10.000 tabuleiros de teste, que o agente não viu no treino:
 - **Treino:** 3 sementes por tabuleiro. A primeira rodada foi interrompida: o 5×5 parou em cerca de
   70 mil partidas, já estável, e o 9×9 em cerca de 28 mil. As curvas dessa rodada foram reconstruídas
   dos registros em `resultados/logs/`. Depois, a semente 0 do 9×9 foi retomada (`--continuar-de`) até
-  100 mil partidas e terminou ainda subindo devagar.
-- **Rede comparada:** escolhida entre as salvas durante o treino da semente 0, pela taxa de vitórias em
-  2.000 tabuleiros de validação separados dos de teste. No 5×5 foi a de 32 mil partidas; no 9×9, a de
-  98 mil.
-- **Vídeos:** a DQN joga os mesmos 3 tabuleiros em 4 momentos do treino:
+  100 mil partidas.
+- **Retreino** (`resultados/ajuste/`): a partir das melhores redes, com `--aumentar` (cada lote do
+  replay é girado ou espelhado ao acaso) e `--lr-final` (taxa de aprendizado de 5·10⁻⁴ caindo até
+  10⁻⁵ em forma de cosseno). No 9×9, foi de 98 mil para 140 mil partidas; no 5×5, de 32 mil para 72 mil.
+- **Média nas simetrias:** o jogo não muda se o tabuleiro for girado ou espelhado. Na hora de jogar, a
+  rede avalia as 8 versões do tabuleiro, e a média dos valores Q decide a jogada. No 9×9, isso rendeu 10
+  pontos sem nenhum treino a mais.
+- **Onde a DQN perde:** no 9×9, 69% das derrotas da DQN inicial aconteceram quando havia uma casa que a
+  lógica garantia ser segura (no 5×5, 50%). Ou seja, ela ainda erra deduções.
+- **Lógica + chute da DQN:** abre as casas que a lógica garante e só usa a DQN quando é preciso
+  chutar. É o resolvedor com o chute ao acaso trocado pelo da DQN, e mostra que a DQN chuta muito
+  melhor que o acaso.
+- **Rede comparada:** em cada treino, escolhida entre as salvas pela taxa de vitórias em 2.000
+  tabuleiros de validação, separados dos de teste. A versão final também é escolhida pela validação.
+- **Vídeos:** a DQN inicial joga os mesmos 3 tabuleiros em 4 momentos do treino:
   [5×5](resultados/treino_5x5.mp4) e [9×9](resultados/treino_9x9.mp4).
 
 ### Detalhes da implementação
@@ -70,6 +87,7 @@ Vitórias em 10.000 tabuleiros de teste, que o agente não viu no treino:
 ```bash
 pip install -r requirements.txt
 python treinar.py --tabuleiro 5x5 --semente 0 --checkpoints   # também 9x9 e outras sementes
+python treinar.py --tabuleiro 9x9 --episodios 140000 --aumentar --lr 5e-4 --lr-final 1e-5     --checkpoints --saida resultados/ajuste     --continuar-de resultados/9x9/checkpoints_semente0/ep0098001.pt   # retreino
 python avaliar.py    # compara as políticas e gera resultados/resumo.json
 python graficos.py   # gera os dois gráficos
 python video.py --tabuleiro 9x9 --momentos 0 10000 30000 100000

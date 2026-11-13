@@ -13,10 +13,10 @@
   "Ao acaso": 0.0001,
   "Resolvedor lógico": 0.7917,
   "DQN": {
-   "vitorias": 0.5019,
+   "vitorias": 0.6719,
    "semente": 0,
-   "episodio": 28000,
-   "validacao": 0.5125
+   "episodio": 98001,
+   "validacao": 0.675
   }
  }
 }

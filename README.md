@@ -34,18 +34,19 @@ Vitórias em 10.000 tabuleiros de teste, que o agente não viu no treino:
 | Tabuleiro | Ao acaso | Resolvedor lógico | DQN |
 |---|---|---|---|
 | 5×5, 4 minas | 2,9% | 61,2% | **65,2%** |
-| 9×9, 10 minas | 0,0% | 79,2% | **50,2%** (treino parcial) |
+| 9×9, 10 minas | 0,0% | 79,2% | **67,2%** |
 
 ![Curva de aprendizado](resultados/curva_aprendizado.png)
 
 ![Comparação final](resultados/comparacao_final.png)
 
-- **Treino:** 3 sementes por tabuleiro. O treino foi interrompido antes das 100 mil partidas
-  planejadas: o 5×5 parou em cerca de 70 mil, e o 9×9 em cerca de 28 mil, ainda melhorando. As
-  curvas foram reconstruídas dos registros em `resultados/logs/`.
+- **Treino:** 3 sementes por tabuleiro. A primeira rodada foi interrompida: o 5×5 parou em cerca de
+  70 mil partidas, já estável, e o 9×9 em cerca de 28 mil. As curvas dessa rodada foram reconstruídas
+  dos registros em `resultados/logs/`. Depois, a semente 0 do 9×9 foi retomada (`--continuar-de`) até
+  100 mil partidas e terminou ainda subindo devagar.
 - **Rede comparada:** escolhida entre as salvas durante o treino da semente 0, pela taxa de vitórias em
   2.000 tabuleiros de validação separados dos de teste. No 5×5 foi a de 32 mil partidas; no 9×9, a de
-  28 mil.
+  98 mil.
 - **Vídeos:** a DQN joga os mesmos 3 tabuleiros em 4 momentos do treino:
   [5×5](resultados/treino_5x5.mp4) e [9×9](resultados/treino_9x9.mp4).
 
@@ -71,7 +72,7 @@ pip install -r requirements.txt
 python treinar.py --tabuleiro 5x5 --semente 0 --checkpoints   # também 9x9 e outras sementes
 python avaliar.py    # compara as políticas e gera resultados/resumo.json
 python graficos.py   # gera os dois gráficos
-python video.py --tabuleiro 9x9 --momentos 0 6000 14000 28000
+python video.py --tabuleiro 9x9 --momentos 0 10000 30000 100000
 ```
 
 ## Equipe

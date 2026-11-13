@@ -3,10 +3,12 @@
 Exemplos:
     python treinar.py --tabuleiro 5x5 --semente 0
     python treinar.py --tabuleiro 9x9 --semente 0
+    python treinar.py --tabuleiro 9x9 --checkpoints --continuar-de resultados/9x9/checkpoints_semente0/ep0028000.pt
 """
 
 import argparse
 import json
+import re
 import time
 from pathlib import Path
 
@@ -41,6 +43,8 @@ def main():
     p.add_argument("--threads", type=int, default=2)
     p.add_argument("--checkpoints", action="store_true",
                    help="salva a rede em cada avaliação (usado no vídeo)")
+    p.add_argument("--continuar-de", metavar="CHECKPOINT",
+                   help="retoma o treino de uma rede salva (o número de partidas vem do nome, ex.: ep0028000.pt)")
     p.add_argument("--saida", default="resultados")
     args = p.parse_args()
 
@@ -71,6 +75,22 @@ def main():
     inicio = time.time()
     nome = f"dqn_semente{args.semente}"
 
+    if args.continuar_de:
+        # Retoma da rede salva. O replay e o otimizador recomeçam vazios; epsilon segue o cronograma.
+        online.load_state_dict(torch.load(args.continuar_de))
+        alvo.load_state_dict(online.state_dict())
+        episodios = proxima_avaliacao = int(re.search(r"ep(\d+)", Path(args.continuar_de).stem)[1])
+        anterior = pasta / f"{nome}.json"
+        if anterior.exists():
+            dados = json.loads(anterior.read_text(encoding="utf-8"))
+            curva = [p for p in dados["curva"] if p["episodio"] < episodios]
+            inicio -= dados.get("tempo_s", 0)
+        print(f"retomando de {args.continuar_de} ({episodios} partidas)", flush=True)
+
+    def calcular_epsilon():
+        return max(args.epsilon_final,
+                   1 - (1 - args.epsilon_final) * episodios / (args.fracao_exploracao * args.episodios))
+
     def salvar():
         """Salva a curva e a rede a cada avaliação: se o treino parar, o que já foi feito fica salvo."""
         pasta.mkdir(parents=True, exist_ok=True)
@@ -81,6 +101,7 @@ def main():
 
     while episodios < args.episodios:
         # Avaliação periódica nos tabuleiros de teste, sem exploração
+        epsilon = calcular_epsilon()
         if episodios >= proxima_avaliacao:
             taxa = avaliar(online, linhas, colunas, minas, SEMENTES_TESTE)
             curva.append({"episodio": episodios, "vitorias": taxa})
@@ -94,8 +115,6 @@ def main():
             salvar()
 
         # epsilon-guloso, só entre casas fechadas
-        epsilon = max(args.epsilon_final,
-                      1 - (1 - args.epsilon_final) * episodios / (args.fracao_exploracao * args.episodios))
         mascara = mascara_fechadas(estados)
         with torch.no_grad():
             acoes = melhores_acoes(online(codificar(estados)), mascara).numpy()

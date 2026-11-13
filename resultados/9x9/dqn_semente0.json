@@ -1,19 +1,23 @@
 {
  "config": {
+  "tabuleiro": "9x9",
+  "semente": 0,
+  "episodios": 100000,
+  "paralelos": 32,
   "gamma": 0.1,
   "lr": 0.001,
   "lote": 128,
   "canais": 32,
   "camadas": 5,
-  "paralelos": 32,
   "memoria": 200000,
   "epsilon_final": 0.01,
   "fracao_exploracao": 0.3,
   "atualizar_alvo": 1000,
   "avaliar_cada": 2000,
-  "episodios": 100000,
-  "tabuleiro": "9x9",
-  "semente": 0
+  "threads": 3,
+  "checkpoints": true,
+  "continuar_de": "resultados/9x9/checkpoints_semente0/ep0028000.pt",
+  "saida": "resultados"
  },
  "curva": [
   {
@@ -75,8 +79,151 @@
   {
    "episodio": 28000,
    "vitorias": 0.495
+  },
+  {
+   "episodio": 30002,
+   "vitorias": 0.508
+  },
+  {
+   "episodio": 32001,
+   "vitorias": 0.529
+  },
+  {
+   "episodio": 34003,
+   "vitorias": 0.56
+  },
+  {
+   "episodio": 36000,
+   "vitorias": 0.532
+  },
+  {
+   "episodio": 38003,
+   "vitorias": 0.557
+  },
+  {
+   "episodio": 40002,
+   "vitorias": 0.583
+  },
+  {
+   "episodio": 42005,
+   "vitorias": 0.545
+  },
+  {
+   "episodio": 44001,
+   "vitorias": 0.576
+  },
+  {
+   "episodio": 46000,
+   "vitorias": 0.521
+  },
+  {
+   "episodio": 48002,
+   "vitorias": 0.499
+  },
+  {
+   "episodio": 50001,
+   "vitorias": 0.592
+  },
+  {
+   "episodio": 52002,
+   "vitorias": 0.575
+  },
+  {
+   "episodio": 54003,
+   "vitorias": 0.551
+  },
+  {
+   "episodio": 56000,
+   "vitorias": 0.608
+  },
+  {
+   "episodio": 58001,
+   "vitorias": 0.527
+  },
+  {
+   "episodio": 60001,
+   "vitorias": 0.599
+  },
+  {
+   "episodio": 62001,
+   "vitorias": 0.575
+  },
+  {
+   "episodio": 64002,
+   "vitorias": 0.551
+  },
+  {
+   "episodio": 66000,
+   "vitorias": 0.635
+  },
+  {
+   "episodio": 68003,
+   "vitorias": 0.582
+  },
+  {
+   "episodio": 70001,
+   "vitorias": 0.579
+  },
+  {
+   "episodio": 72004,
+   "vitorias": 0.579
+  },
+  {
+   "episodio": 74001,
+   "vitorias": 0.583
+  },
+  {
+   "episodio": 76002,
+   "vitorias": 0.593
+  },
+  {
+   "episodio": 78000,
+   "vitorias": 0.602
+  },
+  {
+   "episodio": 80001,
+   "vitorias": 0.641
+  },
+  {
+   "episodio": 82001,
+   "vitorias": 0.608
+  },
+  {
+   "episodio": 84002,
+   "vitorias": 0.612
+  },
+  {
+   "episodio": 86000,
+   "vitorias": 0.626
+  },
+  {
+   "episodio": 88000,
+   "vitorias": 0.641
+  },
+  {
+   "episodio": 90000,
+   "vitorias": 0.666
+  },
+  {
+   "episodio": 92000,
+   "vitorias": 0.657
+  },
+  {
+   "episodio": 94000,
+   "vitorias": 0.658
+  },
+  {
+   "episodio": 96001,
+   "vitorias": 0.69
+  },
+  {
+   "episodio": 98001,
+   "vitorias": 0.685
+  },
+  {
+   "episodio": 100003,
+   "vitorias": 0.664
   }
  ],
- "tempo_s": 1857,
- "nota": "treino interrompido em 28000 partidas (planejado: 100.000); curva reconstruída do log"
+ "tempo_s": 4067
 }

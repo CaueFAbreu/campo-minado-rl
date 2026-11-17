@@ -1,0 +1,31 @@
+ep       0  teste   1.6%
+ep    2001  teste  11.3%  treino   2.8%  eps 0.890      15s
+ep    4002  teste  17.3%  treino   3.6%  eps 0.780      31s
+ep    6000  teste  26.6%  treino   5.3%  eps 0.670      49s
+ep    8006  teste  31.3%  treino   6.3%  eps 0.560      68s
+ep   10003  teste  46.6%  treino  12.2%  eps 0.450      87s
+ep   12004  teste  52.2%  treino  18.6%  eps 0.340     106s
+ep   14003  teste  52.3%  treino  24.5%  eps 0.230     128s
+ep   16005  teste  53.2%  treino  35.5%  eps 0.120     152s
+ep   18002  teste  52.5%  treino  45.6%  eps 0.010     178s
+ep   20000  teste  58.9%  treino  55.2%  eps 0.010     205s
+ep   22000  teste  59.9%  treino  54.8%  eps 0.010     232s
+ep   24005  teste  60.3%  treino  55.9%  eps 0.010     260s
+ep   26003  teste  61.5%  treino  57.4%  eps 0.010    3418s
+ep   28003  teste  62.1%  treino  57.4%  eps 0.010    3443s
+ep   30007  teste  64.1%  treino  57.9%  eps 0.010    3464s
+ep   32000  teste  57.9%  treino  58.1%  eps 0.010    3488s
+ep   34004  teste  60.6%  treino  58.4%  eps 0.010    3511s
+ep   36002  teste  64.6%  treino  59.0%  eps 0.010    3534s
+ep   38002  teste  59.1%  treino  59.0%  eps 0.010    3557s
+ep   40001  teste  63.7%  treino  56.5%  eps 0.010    3581s
+ep   42004  teste  62.7%  treino  58.7%  eps 0.010    3605s
+ep   44000  teste  59.2%  treino  55.4%  eps 0.010    3628s
+ep   46000  teste  60.0%  treino  58.3%  eps 0.010    3653s
+ep   48003  teste  57.2%  treino  58.5%  eps 0.010    3681s
+ep   50002  teste  57.7%  treino  57.4%  eps 0.010    3708s
+ep   52001  teste  57.9%  treino  58.1%  eps 0.010    3735s
+ep   54003  teste  57.4%  treino  57.0%  eps 0.010    3761s
+ep   56000  teste  58.5%  treino  55.5%  eps 0.010    3789s
+ep   58001  teste  60.6%  treino  57.4%  eps 0.010    3818s
+final: 59.6% de vitórias em 3845s

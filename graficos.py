@@ -49,14 +49,19 @@ def curva(resumo):
         y = np.array([[p["vitorias"] for p in c[:n]] for c in corridas])
         i_longa = max(range(len(corridas)), key=lambda i: len(corridas[i]))
         longa = corridas[i_longa]
-        # O retreino (resultados/ajuste) entra como continuação quando começa no fim do treino original.
-        inicio_retreino = None
-        arq_ajuste = PASTA / "ajuste" / tab / f"dqn_semente{dados[i_longa]['config']['semente']}.json"
-        if arq_ajuste.exists():
-            ajuste = json.loads(arq_ajuste.read_text(encoding="utf-8"))["curva"]
-            if ajuste[0]["episodio"] >= 0.9 * longa[-1]["episodio"]:
-                inicio_retreino = ajuste[0]["episodio"] / 1000
-                longa = [p for p in longa if p["episodio"] < ajuste[0]["episodio"]] + ajuste
+        # Retreinos que continuam a mesma rede entram como continuação da curva, quando começam
+        # perto do fim do trecho anterior: primeiro resultados/ajuste, depois resultados/mse.
+        retreinos = []  # (partida em que começa, rótulo)
+        semente = dados[i_longa]["config"]["semente"]
+        for pasta_r, rotulo in (("ajuste", "retreino: simetrias e\ntaxa decrescente →"),
+                                ("mse", "erro\nquadrático →")):
+            arq = PASTA / pasta_r / tab / f"dqn_semente{semente}.json"
+            if not arq.exists():
+                continue
+            cont = json.loads(arq.read_text(encoding="utf-8"))["curva"]
+            if cont[0]["episodio"] >= 0.9 * longa[-1]["episodio"]:
+                retreinos.append((cont[0]["episodio"] / 1000, rotulo))
+                longa = [p for p in longa if p["episodio"] < cont[0]["episodio"]] + cont
         continua = len(longa) - n > 2  # uma semente treinou bem mais que as outras
         x_fim = (longa if continua else corridas[0][:n])[-1]["episodio"] / 1000
 
@@ -77,10 +82,10 @@ def curva(resumo):
             ax.axvline(x[-1], color=GRADE, lw=1, zorder=0)
             ax.text(x[-1] + x_fim * 0.01, 0.03, f"daqui em diante,\nsó a semente {dados[i_longa]['config']['semente']}", ha="left", va="bottom",
                     fontsize=13, color=SUAVE, linespacing=1.2)
-        if inicio_retreino is not None:
-            ax.axvline(inicio_retreino, color=GRADE, lw=1, zorder=0)
-            ax.text(inicio_retreino - x_fim * 0.01, 0.95, "retreino com simetrias e\ntaxa de aprendizado\ndecrescente →",
-                    ha="right", va="top", fontsize=13, color=SUAVE, linespacing=1.2)
+        for inicio, rotulo in retreinos:
+            ax.axvline(inicio, color=GRADE, lw=1, zorder=0)
+            ax.text(inicio - x_fim * 0.008, 0.97, rotulo, ha="right", va="top", fontsize=12.5, color=SUAVE,
+                    linespacing=1.15)
         ax.set_title(NOME_TAB[tab], loc="left", fontsize=18, fontweight="bold", color=TINTA, pad=12)
         ax.set_xlabel("Partidas de treino (mil)")
         ax.set_xlim(0, x_fim)
@@ -101,11 +106,12 @@ def comparacao(resumo):
     barras = [  # (rótulo, cor, como obter o valor)
         ("Ao acaso", COR["Ao acaso"], lambda r: r["Ao acaso"]),
         ("Resolvedor lógico", COR["Resolvedor lógico"], lambda r: r["Resolvedor lógico"]),
+        ("Probabilidade exata", "#6A5A93", lambda r: r["Probabilidade exata"]),
         ("DQN inicial", "#7F9BB8", lambda r: r["variantes"]["DQN"]["vitorias"]),
         ("DQN final", COR["DQN"], lambda r: r["DQN final"]["vitorias"]),
         ("Lógica + chute da DQN", "#2E7D6F", lambda r: r["Lógica + chute da DQN"]),
     ]
-    fig, eixos = plt.subplots(2, 1, figsize=(9.6, 6.2), sharex=True)
+    fig, eixos = plt.subplots(2, 1, figsize=(9.6, 6.6), sharex=True)
     for ax, tab in zip(eixos, NOME_TAB):
         y = np.arange(len(barras))[::-1]
         for yi, (rotulo, cor, valor) in zip(y, barras):

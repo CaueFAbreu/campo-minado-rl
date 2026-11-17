@@ -1,0 +1,151 @@
+{
+ "config": {
+  "tabuleiro": "5x5",
+  "semente": 0,
+  "episodios": 60000,
+  "paralelos": 32,
+  "gamma": 0.1,
+  "lr": 0.001,
+  "lr_final": 1e-05,
+  "aumentar": true,
+  "lote": 128,
+  "canais": 64,
+  "camadas": 6,
+  "memoria": 200000,
+  "epsilon_final": 0.01,
+  "fracao_exploracao": 0.3,
+  "atualizar_alvo": 1000,
+  "avaliar_cada": 2000,
+  "threads": 4,
+  "checkpoints": true,
+  "continuar_de": null,
+  "saida": "resultados/grande"
+ },
+ "curva": [
+  {
+   "episodio": 0,
+   "vitorias": 0.016
+  },
+  {
+   "episodio": 2001,
+   "vitorias": 0.113
+  },
+  {
+   "episodio": 4002,
+   "vitorias": 0.173
+  },
+  {
+   "episodio": 6000,
+   "vitorias": 0.266
+  },
+  {
+   "episodio": 8006,
+   "vitorias": 0.313
+  },
+  {
+   "episodio": 10003,
+   "vitorias": 0.466
+  },
+  {
+   "episodio": 12004,
+   "vitorias": 0.522
+  },
+  {
+   "episodio": 14003,
+   "vitorias": 0.523
+  },
+  {
+   "episodio": 16005,
+   "vitorias": 0.532
+  },
+  {
+   "episodio": 18002,
+   "vitorias": 0.525
+  },
+  {
+   "episodio": 20000,
+   "vitorias": 0.589
+  },
+  {
+   "episodio": 22000,
+   "vitorias": 0.599
+  },
+  {
+   "episodio": 24005,
+   "vitorias": 0.603
+  },
+  {
+   "episodio": 26003,
+   "vitorias": 0.615
+  },
+  {
+   "episodio": 28003,
+   "vitorias": 0.621
+  },
+  {
+   "episodio": 30007,
+   "vitorias": 0.641
+  },
+  {
+   "episodio": 32000,
+   "vitorias": 0.579
+  },
+  {
+   "episodio": 34004,
+   "vitorias": 0.606
+  },
+  {
+   "episodio": 36002,
+   "vitorias": 0.646
+  },
+  {
+   "episodio": 38002,
+   "vitorias": 0.591
+  },
+  {
+   "episodio": 40001,
+   "vitorias": 0.637
+  },
+  {
+   "episodio": 42004,
+   "vitorias": 0.627
+  },
+  {
+   "episodio": 44000,
+   "vitorias": 0.592
+  },
+  {
+   "episodio": 46000,
+   "vitorias": 0.6
+  },
+  {
+   "episodio": 48003,
+   "vitorias": 0.572
+  },
+  {
+   "episodio": 50002,
+   "vitorias": 0.577
+  },
+  {
+   "episodio": 52001,
+   "vitorias": 0.579
+  },
+  {
+   "episodio": 54003,
+   "vitorias": 0.574
+  },
+  {
+   "episodio": 56000,
+   "vitorias": 0.585
+  },
+  {
+   "episodio": 58001,
+   "vitorias": 0.606
+  },
+  {
+   "episodio": 60001,
+   "vitorias": 0.596
+  }
+ ],
+ "tempo_s": 3845
+}

@@ -34,6 +34,8 @@ def main():
     p.add_argument("--lr", type=float, default=1e-3)
     p.add_argument("--lr-final", type=float, default=None,
                    help="se informado, a taxa de aprendizado cai (cosseno) de --lr até este valor")
+    p.add_argument("--perda", choices=["huber", "mse"], default="huber",
+                   help="huber limita erros grandes; mse aprende a média das recompensas (separa melhor os riscos)")
     p.add_argument("--aumentar", action="store_true",
                    help="gira/espelha cada lote do replay ao acaso (o jogo é simétrico)")
     p.add_argument("--lote", type=int, default=128)
@@ -155,7 +157,7 @@ def main():
             q2 = alvo(codificar(s2)).gather(1, a2[:, None]).squeeze(1)
             fim = torch.as_tensor(fim) | ~mascara2.any(1)
             objetivo = torch.as_tensor(r) + args.gamma * torch.where(fim, 0.0, q2)
-        perda = F.smooth_l1_loss(q, objetivo)
+        perda = F.mse_loss(q, objetivo) if args.perda == "mse" else F.smooth_l1_loss(q, objetivo)
         otimizador.zero_grad()
         perda.backward()
         torch.nn.utils.clip_grad_norm_(online.parameters(), 10)

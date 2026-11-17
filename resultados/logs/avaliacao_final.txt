@@ -1,0 +1,18 @@
+5x5 DQN {'vitorias': 0.6523, 'validacao': 0.6735, 'checkpoint': '5x5/checkpoints_semente0/ep0032007.pt', 'simetria': False}
+5x5 DQN + média nas simetrias {'vitorias': 0.6512, 'validacao': 0.65, 'checkpoint': '5x5/checkpoints_semente0/ep0032007.pt', 'simetria': True}
+5x5 DQN retreinada {'vitorias': 0.6523, 'validacao': 0.6735, 'checkpoint': 'ajuste/5x5/checkpoints_semente0/ep0032007.pt', 'simetria': False}
+5x5 DQN retreinada + média nas simetrias {'vitorias': 0.6512, 'validacao': 0.65, 'checkpoint': 'ajuste/5x5/checkpoints_semente0/ep0032007.pt', 'simetria': True}
+5x5 DQN maior {'vitorias': 0.634, 'validacao': 0.634, 'checkpoint': 'grande/5x5/checkpoints_semente0/ep0036002.pt', 'simetria': False}
+5x5 DQN maior + média nas simetrias {'vitorias': 0.6091, 'validacao': 0.594, 'checkpoint': 'grande/5x5/checkpoints_semente0/ep0036002.pt', 'simetria': True}
+5x5 DQN com erro quadrático {'vitorias': 0.6443, 'validacao': 0.6545, 'checkpoint': 'mse/5x5/checkpoints_semente0/ep0046000.pt', 'simetria': False}
+5x5 DQN com erro quadrático + média nas simetrias {'vitorias': 0.6383, 'validacao': 0.626, 'checkpoint': 'mse/5x5/checkpoints_semente0/ep0046000.pt', 'simetria': True}
+5x5 DQN com erro quadrático e γ = 0 {'vitorias': 0.6221, 'validacao': 0.6345, 'checkpoint': 'mse_g0/5x5/checkpoints_semente0/ep0048002.pt', 'simetria': False}
+5x5 DQN com erro quadrático e γ = 0 + média nas simetrias {'vitorias': 0.6033, 'validacao': 0.6085, 'checkpoint': 'mse_g0/5x5/checkpoints_semente0/ep0048002.pt', 'simetria': True}
+5x5 final: DQN | lógica + chute da DQN: 0.74
+9x9 DQN {'vitorias': 0.6719, 'validacao': 0.675, 'checkpoint': '9x9/checkpoints_semente0/ep0098001.pt', 'simetria': False}
+9x9 DQN + média nas simetrias {'vitorias': 0.8158, 'validacao': 0.7995, 'checkpoint': '9x9/checkpoints_semente0/ep0098001.pt', 'simetria': True}
+9x9 DQN retreinada {'vitorias': 0.7159, 'validacao': 0.718, 'checkpoint': 'ajuste/9x9/checkpoints_semente0/ep0134001.pt', 'simetria': False}
+9x9 DQN retreinada + média nas simetrias {'vitorias': 0.8156, 'validacao': 0.826, 'checkpoint': 'ajuste/9x9/checkpoints_semente0/ep0134001.pt', 'simetria': True}
+9x9 DQN com erro quadrático {'vitorias': 0.8232, 'validacao': 0.834, 'checkpoint': 'mse/9x9/checkpoints_semente0/ep0166002.pt', 'simetria': False}
+9x9 DQN com erro quadrático + média nas simetrias {'vitorias': 0.8733, 'validacao': 0.8865, 'checkpoint': 'mse/9x9/checkpoints_semente0/ep0166002.pt', 'simetria': True}
+9x9 final: DQN com erro quadrático + média nas simetrias | lógica + chute da DQN: 0.8973

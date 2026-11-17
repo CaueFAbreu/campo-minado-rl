@@ -16,7 +16,7 @@ import torch
 
 from campo_minado.ambiente import CampoMinado
 from campo_minado.dqn import LogicaComChuteDQN, RedeQ, avaliar
-from campo_minado.politicas import Aleatoria, Resolvedor, jogar
+from campo_minado.politicas import Aleatoria, Probabilistico, Resolvedor, jogar
 from treinar import TABULEIROS
 
 SEMENTES_TESTE = range(10_000_000, 10_010_000)
@@ -28,6 +28,9 @@ SEMENTE_DQN = 0  # a execução que salvou as redes intermediárias
 TREINOS = [
     ("DQN", PASTA),
     ("DQN retreinada", PASTA / "ajuste"),  # simetrias no treino e taxa de aprendizado decrescente
+    ("DQN maior", PASTA / "grande"),  # 64 canais e 6 camadas, já com simetrias e taxa decrescente
+    ("DQN com erro quadrático", PASTA / "mse"),  # perda MSE em vez de Huber
+    ("DQN com erro quadrático e γ = 0", PASTA / "mse_g0"),
 ]
 
 
@@ -49,6 +52,7 @@ def main():
         env = CampoMinado(linhas, colunas, minas)
         r = {"Ao acaso": jogar(Aleatoria(0), env, SEMENTES_TESTE),
              "Resolvedor lógico": jogar(Resolvedor(0), env, SEMENTES_TESTE),
+             "Probabilidade exata": jogar(Probabilistico(minas), env, SEMENTES_TESTE),
              "variantes": {}}
         redes = {}
         for nome, pasta in TREINOS:

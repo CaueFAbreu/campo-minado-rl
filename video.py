@@ -1,7 +1,7 @@
 """Grava um vídeo da DQN jogando em quatro momentos do treino, nos mesmos tabuleiros.
 
     python video.py --tabuleiro 9x9
-Usa as redes salvas com `treinar.py --checkpoints` e gera resultados/treino_<tabuleiro>.mp4.
+Usa as redes salvas com `treinar.py --checkpoints` e gera entrega-02-resultados/treino_<tabuleiro>.mp4.
 """
 
 import argparse
@@ -34,7 +34,14 @@ FPS = 2
 SEMENTES_VIDEO = [10_000_000, 10_000_001, 10_000_002]  # tabuleiros de teste
 
 
-def desenhar(ax, env, ultima=None, perdeu=False):
+def _misturar(cor_a, cor_b, t):
+    a = [int(cor_a[i:i + 2], 16) for i in (1, 3, 5)]
+    b = [int(cor_b[i:i + 2], 16) for i in (1, 3, 5)]
+    return "#" + "".join(f"{round(x + (y - x) * float(t)):02x}" for x, y in zip(a, b))
+
+
+def desenhar(ax, env, ultima=None, perdeu=False, chances=None):
+    """Desenha o tabuleiro. Com `chances`, cada casa fechada é sombreada pela chance de mina estimada."""
     ax.clear()
     ax.set_xlim(0, env.colunas)
     ax.set_ylim(env.linhas, 0)
@@ -45,12 +52,18 @@ def desenhar(ax, env, ultima=None, perdeu=False):
             v = env.visivel[l, c]
             mina_visivel = perdeu and env.minas[l, c]
             cor = MINA if (mina_visivel and (l, c) == ultima) else (ABERTA if v != FECHADA else FECHADA_COR)
+            if v == FECHADA and chances is not None and not mina_visivel:
+                cor = _misturar("#9FB4C8", FECHADA_COR, chances[l * env.colunas + c])
             ax.add_patch(Rectangle((c + 0.04, l + 0.04), 0.92, 0.92, color=cor, lw=0))
             if mina_visivel:
                 ax.add_patch(plt.Circle((c + 0.5, l + 0.5), 0.2, color=FUNDO if (l, c) == ultima else "#E07B39"))
             elif v > 0:
                 ax.text(c + 0.5, l + 0.53, str(v), ha="center", va="center", fontsize=22 if env.linhas > 5 else 34,
                         fontweight="bold", color=COR_NUMERO.get(int(v), TINTA))
+            elif v == FECHADA and chances is not None:
+                pc = chances[l * env.colunas + c]
+                ax.text(c + 0.5, l + 0.52, f"{pc:.0%}", ha="center", va="center", fontsize=11 if env.linhas > 5 else 16,
+                        color=FUNDO if pc > 0.25 else TINTA)
     if ultima is not None:
         l, c = ultima
         ax.add_patch(Rectangle((c + 0.04, l + 0.04), 0.92, 0.92, fill=False, ec=DESTAQUE, lw=4))
@@ -77,7 +90,7 @@ def main():
     texto = fig.add_axes([0.58, 0.08, 0.4, 0.84])
     texto.axis("off")
 
-    saida = Path(args.resultados) / f"treino_{args.tabuleiro}.mp4"
+    saida = Path("entrega-02-resultados") / f"treino_{args.tabuleiro}.mp4"
     escritor = FFMpegWriter(fps=FPS, bitrate=2500)
     with escritor.saving(fig, str(saida), dpi=100):
         for momento in args.momentos:

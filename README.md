@@ -80,8 +80,11 @@ No 5×5, é a rede do primeiro treino, sem a média.
   cálculo exato.
 - **Rede comparada:** em cada treino, escolhida entre as salvas pela taxa de vitórias em 2.000
   tabuleiros de validação, separados dos de teste. A versão final também é escolhida pela validação.
-- **Vídeos:** a DQN inicial joga os mesmos 3 tabuleiros em 4 momentos do treino:
-  [5×5](resultados/treino_5x5.mp4) e [9×9](resultados/treino_9x9.mp4).
+- **Vídeos** (em [entrega-02-resultados/](entrega-02-resultados/), com o slide da apresentação em PDF):
+  a DQN inicial joga os mesmos 3 tabuleiros em 4 momentos do treino
+  ([5×5](entrega-02-resultados/treino_5x5.mp4) e [9×9](entrega-02-resultados/treino_9x9.mp4)), e a DQN
+  final joga 6 tabuleiros 9×9 novos ([agente_final_9x9.mp4](entrega-02-resultados/agente_final_9x9.mp4),
+  gerado por `python video_final.py`).
 - **Demonstração ao vivo:** `python demo.py` abre uma janela em que a DQN final joga tabuleiros novos,
   mostrando a chance de mina que ela estima para cada casa.
 

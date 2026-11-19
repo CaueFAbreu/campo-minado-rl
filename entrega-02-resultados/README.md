@@ -2,6 +2,7 @@
 
 | Arquivo | O que é |
 |---|---|
+| [apresentação 2.pdf](apresentação%202.pdf) | Apresentação em 2 slides: como a DQN foi treinada (estado, ações, recompensas, γ, ε, rede e ciclo da Double DQN) e os resultados (curva de aprendizado, comparação, tempo de treino e onde ela erra) |
 | [slide-treino-e-resultado.pdf](slide-treino-e-resultado.pdf) | Slide da apresentação: como a DQN foi treinada, o que fizemos além dela e o resultado |
 | [agente_final_9x9.mp4](agente_final_9x9.mp4) | A DQN final jogando 6 tabuleiros 9×9 novos, sem escolher partidas (venceu 5). Cada casa fechada mostra a chance de mina que a DQN estima |
 | [treino_9x9.mp4](treino_9x9.mp4) | A DQN jogando os mesmos 3 tabuleiros 9×9 em 4 momentos do treino: 0, 10 mil, 30 mil e 98 mil partidas |
